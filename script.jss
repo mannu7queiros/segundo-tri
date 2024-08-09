@@ -6,66 +6,66 @@ const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
     {
-        enunciado: "Assim que saiu da escola você se depara com uma nova tecnologia, um chat que consegue responder todas as dúvidas que uma pessoa pode ter, ele também gera imagens e áudios hiper-realistas. Qual o primeiro pensamento?",
+        enunciado: "Você acabou de ser informado sobre uma grande violação de dados em uma empresa que você frequenta. Qual é a sua primeira reação?",
         alternativas: [
             {
-                texto: "Isso é assustador!",
+                texto: "Preocupar-se com a segurança dos seus dados pessoais e verificar imediatamente se há alguma recomendação para proteger suas informações.",
                 afirmacao: "afirmação"
             },
             {
-                texto: "Isso é maravilhoso!",
+                texto: "Achar que isso não afeta você diretamente e ignorar a notícia.",
                 afirmacao: "afirmação"
             }
         ]
     },
     {
-        enunciado: "Com a descoberta desta tecnologia, chamada Inteligência Artificial, uma professora de tecnologia da escola decidiu fazer uma sequência de aulas sobre esta tecnologia. No fim de uma aula ela pede que você escreva um trabalho sobre o uso de IA em sala de aula. Qual atitude você toma?",
+        enunciado: "Ao acessar um novo serviço online, você percebe que ele não tem autenticação de dois fatores disponível. O que você faz?",
         alternativas: [
             {
-                texto: "Utiliza uma ferramenta de busca na internet que utiliza IA para que ela ajude a encontrar informações relevantes para o trabalho e explique numa linguagem que facilite o entendimento.",
+                texto: "Evita criar uma conta no serviço e procura uma alternativa que ofereça maior segurança.",
                 afirmacao: "afirmação"
             },
             {
-                texto: "Escreve o trabalho com base nas conversas que teve com colegas, algumas pesquisas na internet e conhecimentos próprios sobre o tema.",
+                texto: "Cria a conta mesmo assim, pois acha que sua senha forte já é suficiente.",
                 afirmacao: "afirmação"
             }
         ]
     },
     {
-        enunciado: "Após a elaboração do trabalho escrito, a professora realizou um debate entre a turma para entender como foi realizada a pesquisa e escrita. Nessa conversa também foi levantado um ponto muito importante: como a IA impacta o trabalho do futuro. Nesse debate, como você se posiciona?",
+        enunciado: "Você recebe um e-mail de uma fonte desconhecida solicitando informações pessoais em troca de uma recompensa. Qual é sua atitude?",
         alternativas: [
             {
-                texto: "Defende a ideia de que a IA pode criar novas oportunidades de emprego e melhorar habilidades humanas.",
+                texto: "Ignora e marca o e-mail como spam, sabendo que pode ser uma tentativa de phishing.",
                 afirmacao: "afirmação"
             },
             {
-                texto: "Me preocupo com as pessoas que perderão seus empregos para máquinas e defendem a importância de proteger os trabalhadores.",
+                texto: "Responde ao e-mail, acreditando que pode ganhar algo sem risco.",
                 afirmacao: "afirmação"
             }
         ]
     },
     {
-        enunciado: "Ao final da discussão, você precisou criar uma imagem no computador que representasse o que pensa sobre IA. E agora?",
+        enunciado: "Em uma discussão sobre segurança digital, alguém menciona que a privacidade não importa se você não tem nada a esconder. Qual é a sua resposta?",
         alternativas: [
             {
-                texto: "Criar uma imagem utilizando uma plataforma de design como o Paint.",
+                texto: "Defende que a privacidade é um direito fundamental e importante para proteger a liberdade individual.",
                 afirmacao: "afirmação"
             },
             {
-                texto: "Criar uma imagem utilizando um gerador de imagem de IA.",
+                texto: "Concorda que a privacidade não é importante para pessoas que não têm nada a esconder.",
                 afirmacao: "afirmação"
             }
         ]
     },
     {
-        enunciado: "Você tem um trabalho em grupo de biologia para entregar na semana seguinte, o andamento do trabalho está um pouco atrasado e uma pessoa do seu grupo decidiu fazer com ajuda da IA. O problema é que o trabalho está totalmente igual ao do chat. O que você faz? ",
+        enunciado: "Seu amigo compartilha um aplicativo de origem duvidosa que promete aumentar a segurança do seu dispositivo. O que você faz?",
         alternativas: [
             {
-                texto: "Escrever comandos para o chat é uma forma de contribuir com o trabalho, por isso não é um problema utilizar o texto inteiro.",
+                texto: "Adverte seu amigo sobre os riscos e recomenda usar aplicativos de fontes confiáveis.",
                 afirmacao: "afirmação"
             },
             {
-                texto: "O chat pode ser uma tecnologia muito avançada, mas é preciso manter a atenção pois toda máquina erra, por isso revisar o trabalho e contribuir com as perspectivas pessoais é essencial.",
+                texto: "Instala o aplicativo no seu dispositivo, confiando na recomendação do amigo.",
                 afirmacao: "afirmação"
             }
         ]
@@ -82,14 +82,27 @@ function mostraPergunta() {
 }
 
 function mostraAlternativas() {
+    caixaAlternativas.innerHTML = ""; // Limpa as alternativas anteriores
     for (const alternativa of perguntaAtual.alternativas) {
         const botaoAlternativas = document.createElement("button");
         botaoAlternativas.textContent = alternativa.texto;
         botaoAlternativas.addEventListener("click", function () {
             atual++;
-            mostraPergunta();
+            if (atual < perguntas.length) {
+                mostraPergunta();
+            } else {
+                mostraResultado();
+            }
         })
         caixaAlternativas.appendChild(botaoAlternativas);
     }
 }
+
+function mostraResultado() {
+    caixaPerguntas.textContent = "Você completou o questionário!";
+    caixaAlternativas.innerHTML = ""; // Limpa as alternativas
+    textoResultado.textContent = "Obrigado por participar. Reflita sobre suas respostas e continue aprendendo sobre segurança cibernética!";
+    caixaResultado.style.display = "block";
+}
+
 mostraPergunta();
